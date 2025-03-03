@@ -3,27 +3,22 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-
-// Middleware
 app.use(bodyParser.json());
 
-// Database connection
+// Kết nối MongoDB
 mongoose.connect('mongodb+srv://phamthuong1426:Thuong2003%40@thuong.l7ego.mongodb.net/mydatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
+}).then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/api/users', require('./routes/users'));
-app.use('/api/posts', require('./routes/posts'));
+app.use('/api/tasks', require('./routes/tasks'));
 
-
-// Error handling middleware
+// Middleware 
 app.use((err, req, res, next) => {
-    res.status(err.status || 500).json({
-        status: err.status || 500,
-        message: err.message
-    });
+    res.status(err.status || 500).json({ message: err.message });
 });
 
-app.listen(3000, () => console.log('Server running'));
+app.listen(3000, () => console.log('Server running on port 3000'));
