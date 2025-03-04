@@ -9,7 +9,7 @@ router.get("/admin/users", authen, authorize(["admin"]), async (req, res) => {
         const users = await User.find();
         res.json(users);
     } catch (err) {
-        res.status(500).json({ message: "Lỗi máy chủ, vui lòng thử lại sau" });
+        res.status(500).json({ error: err.message });
     }
 });
 
