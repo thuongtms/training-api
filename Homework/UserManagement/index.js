@@ -13,6 +13,9 @@ mongoose.connect('mongodb+srv://phamthuong1426:Thuong2003%40@thuong.l7ego.mongod
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/', require('./routes/users'));
+app.use('/api', require('./routes/products'));
+app.use('/api', require('./routes/cart'));
+app.use('/api', require('./routes/orders'));
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500).json({ message: err.message });
